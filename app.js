@@ -12,7 +12,8 @@ var eos = require('end-of-stream')
 var githubCurrentUser = require('github-current-user')
 var h = require('virtual-dom/h')
 var inherits = require('inherits')
-var leveldown = require('leveldown')
+// var leveldown = require('leveldown')
+var memdown = require('memdown')
 var levelup = require('levelup')
 var patch = require('virtual-dom/patch')
 var subleveldown = require('subleveldown')
@@ -37,7 +38,8 @@ function App (el, currentWindow) {
   self._notifications = 0
   self.currentWindow = currentWindow
 
-  var db = levelup('./friendsdb', {db: leveldown})
+  // var db = levelup('./friendsdb', {db: leveldown})
+  var db = levelup('./friendsdb', {db: memdown})
 
   db.channels = subleveldown(db, 'channels', {valueEncoding: 'json'})
   db.aliases = subleveldown(db, 'aliases', {valueEncoding: 'json'})
